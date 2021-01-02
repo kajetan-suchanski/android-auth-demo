@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Authentication Demo</string>
+    <string name="authenticate">Authenticate</string>
 </resources>
