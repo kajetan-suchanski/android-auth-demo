@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">Authentication Demo</string>
     <string name="authenticate">Authenticate</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="biometric_prompt_error_negative">Happens to everyone</string>
+    <string name="biometric_prompt_negative_generic">I forgot myself</string>
+    <string name="biometric_prompt_negative_face">I lost my head</string>
+    <string name="biometric_prompt_negative_fingerprint">I left my hands</string>
+    <string name="biometric_prompt_negative_iris">I closed my eyes</string>
+    <string name="biometric_prompt_subtitle_generic">Sign in using your biometric credential</string>
+    <string name="biometric_prompt_subtitle_face">Sign in using your face</string>
+    <string name="biometric_prompt_subtitle_fingerprint">Sign in using your fingerprint</string>
+    <string name="biometric_prompt_subtitle_iris">Sign in using your iris</string>
+    <string name="biometric_prompt_title_generic">Biometric login</string>
+    <string name="biometric_prompt_title_face">Face login</string>
+    <string name="biometric_prompt_title_fingerprint">Fingerprint login</string>
+    <string name="biometric_prompt_title_iris">Iris login</string>
 </resources>
