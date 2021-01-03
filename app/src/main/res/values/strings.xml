@@ -15,5 +15,7 @@
     <string name="biometric_prompt_title_face">Face login</string>
     <string name="biometric_prompt_title_fingerprint">Fingerprint login</string>
     <string name="biometric_prompt_title_iris">Iris login</string>
+    <string name="device_credential_prompt_description">Enter your device credential</string>
+    <string name="device_credential_prompt_title">Screen lock</string>
     <string name="secured_device_required">Before you can authenticate, please set up a PIN, pattern or password, and biometrics (if possible)</string>
 </resources>

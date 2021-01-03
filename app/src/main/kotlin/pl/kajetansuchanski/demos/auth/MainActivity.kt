@@ -6,12 +6,16 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
-import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
+    private lateinit var credentialsFragment: CredentialsFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        credentialsFragment = CredentialsFragment()
+        supportFragmentManager.beginTransaction().add(credentialsFragment, null).commit()
 
         button_authenticate.setOnClickListener {
             tryAuthenticate()
@@ -33,11 +37,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             return
         }
 
-        val fragment = Fragment()
-        supportFragmentManager.beginTransaction().add(fragment, null).commitNow()
+        DeviceAuth.prompt(keyguardManager, credentialsFragment) { authorized ->
+            if (authorized) {
+                BiometricAuth.prompt(credentialsFragment) { status, result ->
 
-        BiometricAuth.prompt(fragment) { status, result ->
-
+                }
+            }
         }
     }
 }
