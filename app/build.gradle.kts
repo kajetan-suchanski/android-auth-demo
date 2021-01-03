@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Versions.compileSdk)
-    buildToolsVersion = Versions.buildTools
+    compileSdkVersion(Version.compileSdk)
+    buildToolsVersion = Version.buildTools
 
     defaultConfig {
         applicationId = "pl.kajetansuchanski.demos.auth"
-        minSdkVersion(Versions.minSdk)
-        targetSdkVersion(Versions.compileSdk)
+        minSdkVersion(Version.minSdk)
+        targetSdkVersion(Version.compileSdk)
         versionCode = 1
         versionName = "1.0"
 
@@ -41,12 +41,12 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlin}")
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.1")
 
-    implementation("androidx.biometric:biometric:${Versions.biometric}")
+    implementation("androidx.biometric:biometric:${Version.biometric}")
 
     "testImplementation"("junit:junit:4.+")
     "androidTestImplementation"("androidx.test.ext:junit:1.1.2")
