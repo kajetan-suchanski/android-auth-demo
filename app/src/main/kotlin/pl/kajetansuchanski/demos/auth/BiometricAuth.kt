@@ -111,7 +111,7 @@ object BiometricAuth {
                 errString
             }
 
-            Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show()
             when (errorCode) {
                 BiometricPrompt.ERROR_LOCKOUT -> onResult(Status.LOCKOUT, null)
                 BiometricPrompt.ERROR_LOCKOUT_PERMANENT -> onResult(Status.LOCKOUT_PERMANENT, null)
@@ -126,10 +126,6 @@ object BiometricAuth {
         }
 
         override fun onAuthenticationFailed() {
-            Toast.makeText(
-                context, context.getString(R.string.authentication_failed),
-                Toast.LENGTH_SHORT
-            ).show()
             onResult(Status.FAILURE, null)
         }
     }
