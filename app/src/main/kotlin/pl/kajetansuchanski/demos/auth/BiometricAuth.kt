@@ -9,7 +9,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 
-private typealias OnAuthResult = (status: BiometricAuth.Status, result: BiometricPrompt.AuthenticationResult?) -> Unit
+private typealias OnBiometricAuthResult = (status: BiometricAuth.Status, result: BiometricPrompt.AuthenticationResult?) -> Unit
 
 object BiometricAuth {
     enum class Status {
@@ -19,7 +19,7 @@ object BiometricAuth {
     fun prompt(
         fragment: Fragment,
         context: Context = fragment.requireContext(),
-        onResult: OnAuthResult
+        onResult: OnBiometricAuthResult
     ) {
         when (BiometricManager.from(context).canAuthenticate()) {
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> onResult(Status.NONE_ENROLLED, null)
@@ -99,7 +99,7 @@ object BiometricAuth {
 
     private class AuthCallback(
         private val context: Context,
-        private val onResult: OnAuthResult
+        private val onResult: OnBiometricAuthResult
     ) : BiometricPrompt.AuthenticationCallback() {
         override fun onAuthenticationError(
             errorCode: Int,
