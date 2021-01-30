@@ -5,4 +5,6 @@ object Version {
     const val kotlin = "1.4.20"
 
     const val biometric = "1.0.1"
+
+    const val kandy = "1.1.0"
 }

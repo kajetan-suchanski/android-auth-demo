@@ -48,6 +48,11 @@ dependencies {
 
     implementation("androidx.biometric:biometric:${Version.biometric}")
 
+    // Kandy
+    implementation("com.kwezal.kandy:dialogs:${Version.kandy}@aar")
+    debugImplementation("com.kwezal.kandy:logs-debug:${Version.kandy}@aar")
+    releaseImplementation("com.kwezal.kandy:logs-release:${Version.kandy}@aar")
+
     "testImplementation"("junit:junit:4.+")
     "androidTestImplementation"("androidx.test.ext:junit:1.1.2")
     "androidTestImplementation"("androidx.test.espresso:espresso-core:3.3.0")
