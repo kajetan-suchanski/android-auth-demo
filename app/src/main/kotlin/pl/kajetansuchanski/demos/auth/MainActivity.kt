@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 BiometricAuth.prompt(credentialsFragment) { status, result ->
 
                 }
+            } else {
+                Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_SHORT).show()
             }
         }
     }
