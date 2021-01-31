@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.crypto.Cipher
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var credentialsFragment: CredentialsFragment
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         DeviceAuth.prompt(keyguardManager, credentialsFragment) { authorized ->
             if (authorized) {
-                BiometricAuth.prompt(credentialsFragment) { status, result ->
+                BiometricAuth.prompt(credentialsFragment, Cipher.DECRYPT_MODE) { status, result ->
 
                 }
             } else {

@@ -8,16 +8,24 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import pl.kajetansuchanski.demos.auth.crypto.CryptographyManager
+import javax.crypto.Cipher
 
 private typealias OnBiometricAuthResult = (status: BiometricAuth.Status, result: BiometricPrompt.AuthenticationResult?) -> Unit
+
+private const val KEY_ALIAS = "bio"
 
 object BiometricAuth {
     enum class Status {
         SUCCESS, FAILURE, LOCKOUT, LOCKOUT_PERMANENT, NONE_ENROLLED, NO_HARDWARE
     }
 
+    /**
+     * @param operationMode [Cipher.ENCRYPT_MODE] or [Cipher.DECRYPT_MODE]
+     */
     fun prompt(
         fragment: Fragment,
+        operationMode: Int,
         context: Context = fragment.requireContext(),
         onResult: OnBiometricAuthResult
     ) {
@@ -30,8 +38,10 @@ object BiometricAuth {
                     BiometricPrompt(fragment, executor, AuthCallback(context, onResult))
 
                 val promptInfo = getPromptInfo(context)
+                val cryptoObj =
+                    CryptographyManager(context, KEY_ALIAS).getCryptoObject(operationMode)
 
-                biometricPrompt.authenticate(promptInfo)
+                biometricPrompt.authenticate(promptInfo, cryptoObj)
             }
             else -> onResult(Status.FAILURE, null)
         }
