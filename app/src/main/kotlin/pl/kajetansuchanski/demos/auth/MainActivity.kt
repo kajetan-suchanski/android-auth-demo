@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
+import com.kwezal.kandy.logs.logE
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.crypto.Cipher
 
@@ -36,9 +37,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         DeviceAuth.prompt(keyguardManager, credentialsFragment) { authorized ->
             if (authorized) {
                 BiometricAuth.prompt(credentialsFragment, Cipher.DECRYPT_MODE) { status, result ->
+                    when (status) {
+                        BiometricAuth.Status.SUCCESS -> {
 
+                        }
+                        else -> {
+                            // General error handling
+                            logE { "Biometric auth failed: status=$status" }
+                        }
+                    }
                 }
             } else {
+                logE { "Device auth failed" }
                 Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_SHORT).show()
             }
         }
