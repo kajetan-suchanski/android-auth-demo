@@ -3,6 +3,8 @@ package pl.kajetansuchanski.demos.auth
 import android.app.Activity
 import android.content.Intent
 import androidx.fragment.app.Fragment
+import pl.kajetansuchanski.demos.auth.device.DeviceAuthFragmentInterface
+import pl.kajetansuchanski.demos.auth.device.OnDeviceAuthResult
 
 class CredentialsFragment : Fragment(), DeviceAuthFragmentInterface {
     override var onDeviceAuthResult: OnDeviceAuthResult? = null

@@ -1,7 +1,9 @@
-package pl.kajetansuchanski.demos.auth
+package pl.kajetansuchanski.demos.auth.device
 
 import android.app.KeyguardManager
 import androidx.fragment.app.Fragment
+import pl.kajetansuchanski.demos.auth.R
+import pl.kajetansuchanski.demos.auth.RequestCode
 
 object DeviceAuth {
     fun <FragmentType> prompt(

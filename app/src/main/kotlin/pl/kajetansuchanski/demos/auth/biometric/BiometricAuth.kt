@@ -1,4 +1,4 @@
-package pl.kajetansuchanski.demos.auth
+package pl.kajetansuchanski.demos.auth.biometric
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -8,6 +8,7 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import pl.kajetansuchanski.demos.auth.R
 import pl.kajetansuchanski.demos.auth.crypto.CryptographyManager
 import javax.crypto.Cipher
 

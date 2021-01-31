@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import com.kwezal.kandy.logs.logE
 import kotlinx.android.synthetic.main.activity_main.*
+import pl.kajetansuchanski.demos.auth.biometric.BiometricAuth
+import pl.kajetansuchanski.demos.auth.device.DeviceAuth
 import javax.crypto.Cipher
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {

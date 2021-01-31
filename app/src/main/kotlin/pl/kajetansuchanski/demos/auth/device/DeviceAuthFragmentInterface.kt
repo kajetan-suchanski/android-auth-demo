@@ -1,4 +1,4 @@
-package pl.kajetansuchanski.demos.auth
+package pl.kajetansuchanski.demos.auth.device
 
 typealias OnDeviceAuthResult = (authorized: Boolean) -> Unit
 
