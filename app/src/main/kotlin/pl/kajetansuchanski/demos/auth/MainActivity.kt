@@ -1,7 +1,6 @@
 package pl.kajetansuchanski.demos.auth
 
 import android.app.KeyguardManager
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,11 +24,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private fun tryAuthenticate() {
         val keyguardManager = getSystemService<KeyguardManager>()!!
         val isSecure = with(keyguardManager) {
-            if (Build.VERSION.SDK_INT >= 23) {
-                isDeviceSecure
-            } else {
-                isKeyguardSecure
-            }
+            isDeviceSecure
         }
 
         if (!isSecure) {

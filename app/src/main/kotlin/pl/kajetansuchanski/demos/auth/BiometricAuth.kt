@@ -87,12 +87,10 @@ object BiometricAuth {
                 }
             }
 
-            if (Build.VERSION.SDK_INT >= 23) {
-                addIfPresent(PackageManager.FEATURE_FINGERPRINT)
-                if (Build.VERSION.SDK_INT >= 29) {
-                    addIfPresent(PackageManager.FEATURE_FACE)
-                    addIfPresent(PackageManager.FEATURE_IRIS)
-                }
+            addIfPresent(PackageManager.FEATURE_FINGERPRINT)
+            if (Build.VERSION.SDK_INT >= 29) {
+                addIfPresent(PackageManager.FEATURE_FACE)
+                addIfPresent(PackageManager.FEATURE_IRIS)
             }
         }
     }
