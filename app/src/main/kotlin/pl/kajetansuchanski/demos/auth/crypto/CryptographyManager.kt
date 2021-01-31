@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import androidx.biometric.BiometricPrompt
 import java.io.File
 import java.security.KeyStore
 import java.security.SecureRandom
@@ -29,10 +28,10 @@ class CryptographyManager(private val context: Context, private val keyAlias: St
     /**
      * @param operationMode [Cipher.ENCRYPT_MODE] or [Cipher.DECRYPT_MODE]
      */
-    fun getCryptoObject(operationMode: Int) = BiometricPrompt.CryptoObject(
+    fun getCipher(operationMode: Int): Cipher =
         Cipher.getInstance(CIPHER_TRANSFORMATION).apply {
             init(operationMode, getSecretKey(), getInitializationVector())
-        })
+        }
 
     private fun getSecretKey(): SecretKey = KeyStore.getInstance(KEY_PROVIDER).run {
         load(null)

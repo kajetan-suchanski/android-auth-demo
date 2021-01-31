@@ -38,8 +38,8 @@ object BiometricAuth {
                     BiometricPrompt(fragment, executor, AuthCallback(context, onResult))
 
                 val promptInfo = getPromptInfo(context)
-                val cryptoObj =
-                    CryptographyManager(context, KEY_ALIAS).getCryptoObject(operationMode)
+                val cipher = CryptographyManager(context, KEY_ALIAS).getCipher(operationMode)
+                val cryptoObj = BiometricPrompt.CryptoObject(cipher)
 
                 biometricPrompt.authenticate(promptInfo, cryptoObj)
             }
