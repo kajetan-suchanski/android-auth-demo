@@ -17,5 +17,10 @@
     <string name="biometric_prompt_title_iris">Iris login</string>
     <string name="device_credential_prompt_description">Enter your device credential</string>
     <string name="device_credential_prompt_title">Screen lock</string>
+    <string name="encrypt_and_save">Encrypt &amp; save</string>
+    <string name="encryption_failure">Failed to encrypt and save the secret message</string>
+    <string name="encryption_success">The secret message was successfully encrypted and saved</string>
+    <string name="secret_message_cannot_be_empty">Secret message cannot be empty</string>
+    <string name="secret_message_hint">Secret message…</string>
     <string name="secured_device_required">Before you can authenticate, please set up a PIN, pattern or password, and biometrics (if possible)</string>
 </resources>

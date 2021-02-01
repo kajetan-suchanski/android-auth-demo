@@ -24,6 +24,9 @@ private const val KEY_PROVIDER = "AndroidKeyStore"
 private const val IV_LENGTH_BYTES = 16
 private const val IV_LENGTH_BITS = IV_LENGTH_BYTES * 8
 
+private const val GENERATED_IV_LENGTH_BYTES = 12
+private const val GENERATED_IV_LENGTH_BITS = GENERATED_IV_LENGTH_BYTES * 8
+
 class CryptographyManager(private val context: Context, private val keyAlias: String) {
     /**
      * @param operationMode [Cipher.ENCRYPT_MODE] or [Cipher.DECRYPT_MODE]
@@ -67,25 +70,29 @@ class CryptographyManager(private val context: Context, private val keyAlias: St
 
     private fun getInitializationVector(): AlgorithmParameterSpec {
         val ivFile = getIvFile()
-        val iv = if (ivFile.exists()) {
-            ivFile.readBytes()
+        val iv: ByteArray
+        val ivLength: Int
+        if (ivFile.exists()) {
+            iv = ivFile.readBytes().decodeBase64()
+            ivLength = IV_LENGTH_BITS
         } else {
-            generateInitializationVector().also { iv ->
+            iv = generateInitializationVector().also { iv ->
                 saveInitializationVector(ivFile, iv)
             }
+            ivLength = GENERATED_IV_LENGTH_BITS
         }
 
-        return GCMParameterSpec(IV_LENGTH_BITS, iv)
+        return GCMParameterSpec(ivLength, iv)
     }
 
     private fun generateInitializationVector(): ByteArray {
-        val iv = ByteArray(IV_LENGTH_BYTES)
+        val iv = ByteArray(GENERATED_IV_LENGTH_BYTES)
         SecureRandom().nextBytes(iv)
         return iv
     }
 
     private inline fun saveInitializationVector(file: File, iv: ByteArray) {
-        file.writeBytes(iv)
+        file.writeBytes(iv.encodeBase64())
     }
 
     private inline fun getIvFile() = File(context.filesDir, "$keyAlias.iv")

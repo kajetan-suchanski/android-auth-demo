@@ -12,12 +12,11 @@ import pl.kajetansuchanski.demos.auth.device.DeviceAuth
 import javax.crypto.Cipher
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
-    private lateinit var credentialsFragment: CredentialsFragment
+    private val credentialsFragment by lazy { CredentialsFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        credentialsFragment = CredentialsFragment()
         supportFragmentManager.beginTransaction().add(credentialsFragment, null).commit()
 
         button_authenticate.setOnClickListener {
@@ -41,7 +40,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 BiometricAuth.prompt(credentialsFragment, Cipher.DECRYPT_MODE) { status, result ->
                     when (status) {
                         BiometricAuth.Status.SUCCESS -> {
+                            val result = result
+                                ?: throw IllegalStateException("Biometric authentication result is null")
+                            val cryptoObj = result.cryptoObject
+                                ?: throw IllegalStateException("Biometric cryptographic object is null")
+                            val cipher = cryptoObj.cipher
+                                ?: throw IllegalStateException("Biometric cipher is null")
 
+                            onSuccessfulAuthentication(cipher)
                         }
                         else -> {
                             // General error handling
@@ -54,5 +60,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun onSuccessfulAuthentication(biometricCipher: Cipher) {
+        val fragment = SecretFragment.withCiphers(biometricCipher)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 }
