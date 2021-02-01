@@ -21,7 +21,7 @@ private const val CIPHER_TRANSFORMATION = "$CIPHER_ALGORITHM/$CIPHER_MODE/$CIPHE
 private const val KEY_LENGTH = 256
 private const val KEY_PROVIDER = "AndroidKeyStore"
 
-private const val IV_LENGTH_BYTES = 12
+private const val IV_LENGTH_BYTES = 16
 private const val IV_LENGTH_BITS = IV_LENGTH_BYTES * 8
 
 class CryptographyManager(private val context: Context, private val keyAlias: String) {
@@ -30,7 +30,16 @@ class CryptographyManager(private val context: Context, private val keyAlias: St
      */
     fun getCipher(operationMode: Int): Cipher =
         Cipher.getInstance(CIPHER_TRANSFORMATION).apply {
-            init(operationMode, getSecretKey(), getInitializationVector())
+            val isEnc = operationMode == Cipher.ENCRYPT_MODE
+            init(
+                operationMode,
+                getSecretKey(),
+                if (isEnc) null else getInitializationVector()
+            )
+
+            if (isEnc) {
+                saveInitializationVector(getIvFile(), iv)
+            }
         }
 
     private fun getSecretKey(): SecretKey = KeyStore.getInstance(KEY_PROVIDER).run {
@@ -57,12 +66,12 @@ class CryptographyManager(private val context: Context, private val keyAlias: St
         .build()
 
     private fun getInitializationVector(): AlgorithmParameterSpec {
-        val ivFile = File(context.filesDir, "$keyAlias.iv")
+        val ivFile = getIvFile()
         val iv = if (ivFile.exists()) {
             ivFile.readBytes()
         } else {
             generateInitializationVector().also { iv ->
-                ivFile.writeBytes(iv)
+                saveInitializationVector(ivFile, iv)
             }
         }
 
@@ -74,4 +83,10 @@ class CryptographyManager(private val context: Context, private val keyAlias: St
         SecureRandom().nextBytes(iv)
         return iv
     }
+
+    private inline fun saveInitializationVector(file: File, iv: ByteArray) {
+        file.writeBytes(iv)
+    }
+
+    private inline fun getIvFile() = File(context.filesDir, "$keyAlias.iv")
 }
